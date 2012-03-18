@@ -12,14 +12,14 @@
     </context-param>
 
 	<servlet>
-		<servlet-name>dispatcher</servlet-name>
+		<servlet-name>imageComputingService</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<load-on-startup>2</load-on-startup>
+		<load-on-startup>10</load-on-startup>
 	</servlet>
 	
 	<servlet-mapping>
-		<servlet-name>dispatcher</servlet-name>
-		<url-pattern>/app/*</url-pattern>
+		<servlet-name>imageComputingService</servlet-name>
+		<url-pattern>/imageComputingService</url-pattern>
 	</servlet-mapping>
 
 	<!-- Default page to serve -->

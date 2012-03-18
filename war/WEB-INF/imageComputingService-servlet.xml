@@ -9,24 +9,24 @@
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd"
 	xmlns:mvc="http://www.springframework.org/schema/mvc">
-
-	<!-- 
-	<context:component-scan base-package="system" /> 
-    <tx:annotation-driven/>
 	
-	<bean name="defaultController" class="system.DefaultController"/>
-     --> 
-    
-	<!-- Ustawia domyślny kontroler wszystkie niezmapowane requesty ida do niego -->
-	<!-- 
-	<bean
-		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
-		<property name="defaultHandler" ref="defaultController"/>
-	</bean>
-	-->
-	
-	<!-- 
 	<bean id="imageComputingService" class="cloud.computing.client.ImageComputingServiceImpl"/>  
-	-->
+	
+	<bean id="httpImageComputingService"  
+         class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter"  
+         p:service-ref="imageComputingService">  
+      <property name="serviceInterface">  
+         <value>cloud.computing.client.ImageComputingService</value>  
+      </property>  
+   </bean>  
+  
+   <bean id="urlMapping"  
+          class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">  
+      <property name="mappings">  
+         <props>  
+            <prop key="/imageComputingService">httpImageComputingService</prop>  
+         </props>  
+      </property>  
+   </bean> 
 
 </beans>
