@@ -1,5 +1,10 @@
 package cloud.computing.client;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
+
 public class ImageComputingServiceImpl implements ImageComputingService {
 
 	@Override
@@ -13,6 +18,16 @@ public class ImageComputingServiceImpl implements ImageComputingService {
 			data[i] = (a << 24) + (avg << 16) + (avg << 8) + avg;
 		}
 		return data;
+	}
+
+	@Override
+	public byte[] processImage(byte[] image, int effect) {
+		InputStream in = new ByteArrayInputStream(image);
+		
+		if (effect == this.BLACK_AND_WHITE) {
+			//makeBlackAndWhite(new int[] {0});
+		}
+		return null;
 	}
 
 }
