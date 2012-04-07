@@ -14,7 +14,12 @@ public class Worker {
 	private List<Task> tasks = new ArrayList<Worker.Task>();
 	private Thread monitoringThread = null;
 	private boolean working = false;
+	private boolean googleEngine = false;
 	
+	
+	public Worker(boolean googleEngine) {
+		this.googleEngine = googleEngine;
+	}
 	/**
 	 * Adds Task to List.
 	 * @param r
@@ -54,7 +59,7 @@ public class Worker {
 			monitor();
 		} else {
 			working = true;
-			monitoringThread = ThreadManager.createThreadForCurrentRequest(new Runnable() {
+			monitoringThread = newThread(new Runnable() {
 
 				@Override
 				public void run() {
@@ -89,6 +94,14 @@ public class Worker {
 		}
 	}
 	
+	private Thread newThread(Runnable t) {
+		if (googleEngine == true) {
+			return ThreadManager.createThreadForCurrentRequest(t);
+		} else {
+			return new Thread(t);
+		}
+	}
+	
 	/**
 	 * Class representing task.
 	 * @author Marcin Górzyñski
@@ -101,7 +114,7 @@ public class Worker {
 		
 		public Task(Runnable t) {
 			task = t;
-			thread = ThreadManager.createThreadForCurrentRequest(t);
+			thread = newThread(t);
 		}
 
 		public Thread getThread() {
